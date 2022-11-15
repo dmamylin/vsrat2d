@@ -36,18 +36,22 @@ public class Screen {
         drawShape(paint, () -> shapeRenderer.triangle(a.x(), a.y(), b.x(), b.y(), c.x(), c.y()));
     }
 
-    // TODO: allow to draw a filled polygon
-    private void drawPolygon(Point2D[] points, Paint paint) {
-        if (points.length < 3) {
-            throw new RuntimeException("must contain at least 3 points, but there are: %d".formatted(points.length));
+    public void drawStripe(Point2D begin, Point2D end, float width, Paint paint) {
+        if (width < 1.0f) {
+            return;
         }
-        float[] vertices = new float[points.length * 2];
-        for (int i = 0; i < points.length; i++) {
-            int vertexId = 2 * i;
-            vertices[vertexId] = points[i].x();
-            vertices[vertexId + 1] = points[i].y();
+        var dir = Point2D.subtract(end, begin);
+        var len = dir.norm();
+        if (len <= 1e-1f) {
+            return;
         }
-        drawShape(paint, () -> shapeRenderer.polygon(vertices));
+        float halfWidth = width * 0.5f;
+        float nx = halfWidth * -dir.y() / len;
+        float ny = halfWidth * dir.x() / len;
+        drawShape(paint, () -> {
+            shapeRenderer.triangle(begin.x() + nx, begin.y() + ny, begin.x() - nx, begin.y() - ny, end.x() - nx, end.y() - ny);
+            shapeRenderer.triangle(begin.x() + nx, begin.y() + ny, end.x() - nx, end.y() - ny, end.x() + nx, end.y() + ny);
+        });
     }
 
     public void drawLine(Point2D begin, Point2D end, Color color) {
