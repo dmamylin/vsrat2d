@@ -1,8 +1,28 @@
 package org.madbunny.vsrat2d.api;
 
 public record Point2D(float x, float y) {
+    public Point2D add(Point2D other) {
+        return Point2D.add(this, other);
+    }
+
+    public Point2D subtract(Point2D other) {
+        return Point2D.add(this, other);
+    }
+
+    public Point2D multiply(float scalar) {
+        return Point2D.multiply(this, scalar);
+    }
+
+    public Point2D divide(float scalar) {
+        return Point2D.divide(this, scalar);
+    }
+
     public float norm() {
         return (float) Math.sqrt(x * x + y * y);
+    }
+
+    public static Point2D add(Point2D lhs, Point2D rhs) {
+        return new Point2D(lhs.x() + rhs.x(), lhs.y() + rhs.y());
     }
 
     public static Point2D subtract(Point2D lhs, Point2D rhs) {
