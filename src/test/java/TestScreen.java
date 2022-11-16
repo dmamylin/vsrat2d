@@ -51,9 +51,9 @@ public class TestScreen {
 
         ctx.screen().drawText(
                 fontId,
-                new Point2D(ctx.screen().width * 0.5f - 100, ctx.screen().height * 0.5f),
+                new Point2D(0, 0),
                 new Color(0.0f, 0.0f, 0.0f),
-                "HELLO WORLD");
+                "hello world");
 
         if (ctx.mouse().isButtonClicked(MouseButton.LEFT)) {
             var mousePos = ctx.mouse().getMousePosition();

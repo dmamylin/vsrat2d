@@ -44,7 +44,7 @@ public class Screen {
         for (var task : renderFontTasks) {
             var color = task.color;
             task.font.setColor(new com.badlogic.gdx.graphics.Color(color.red(), color.green(), color.blue(), color.alpha()));
-            task.font.draw(textBatch, task.text, task.position.x(), task.position.y());
+            task.font.draw(textBatch, task.text, task.position.x(), task.position.y() + task.font.getCapHeight());
         }
         textBatch.end();
     }
