@@ -12,6 +12,8 @@ public class Application {
     private int windowHeight = 640;
     private int windowWidth = 480;
     private String windowTitle = "";
+    private Consumer<ApplicationContext> initializer;
+    private ApplicationContext appCtx;
     private boolean isRunning = false;
     private final Object lock = new Object();
 
@@ -30,7 +32,13 @@ public class Application {
         return this;
     }
 
+    public Application setInitializer(Consumer<ApplicationContext> initializer) {
+        this.initializer = initializer;
+        return this;
+    }
+
     public void run(Consumer<FrameContext> updater) {
+        appCtx = new ApplicationContext(new FontManager());
         synchronized (lock) {
             var gameController = new GameController(updater);
             var application = new LwjglApplication(gameController, makeConfig());
@@ -66,7 +74,11 @@ public class Application {
 
         @Override
         public void create() {
-            var screen = new Screen(windowWidth, windowHeight);
+            if (initializer != null) {
+                initializer.accept(appCtx);
+            }
+
+            var screen = new Screen(appCtx, windowWidth, windowHeight);
             var keyboardProcessor = new KeyboardInputProcessor();
             var mouseProcessor = new MouseInputProcessor(windowWidth, windowHeight);
             Gdx.input.setInputProcessor(new InputMultiplexer(keyboardProcessor, mouseProcessor));
@@ -91,7 +103,7 @@ public class Application {
         }
     }
 
-    private static class GameScreen implements com.badlogic.gdx.Screen {
+    private class GameScreen implements com.badlogic.gdx.Screen {
         private final Consumer<FrameContext> updater;
         private final Screen screen;
         private final KeyboardInputProcessor keyboardProcessor;
@@ -111,9 +123,11 @@ public class Application {
 
         @Override
         public void render(float deltaTime) {
-            updater.accept(new FrameContext(deltaTime, screen, keyboardProcessor, mouseProcessor));
+            updater.accept(new FrameContext(deltaTime, appCtx, screen, keyboardProcessor, mouseProcessor));
+            screen.renderTexts();
             keyboardProcessor.reset();
             mouseProcessor.reset();
+            screen.onAfterFrame();
         }
 
         @Override
