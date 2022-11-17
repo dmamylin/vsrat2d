@@ -6,7 +6,7 @@
 
     <groupId>org.madbunny.vsrat2d</groupId>
     <artifactId>vsrat2d</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.3</version>
     <packaging>jar</packaging>
 
     <properties>

@@ -6,7 +6,7 @@ public record Point2D(float x, float y) {
     }
 
     public Point2D subtract(Point2D other) {
-        return Point2D.add(this, other);
+        return Point2D.subtract(this, other);
     }
 
     public Point2D multiply(float scalar) {
