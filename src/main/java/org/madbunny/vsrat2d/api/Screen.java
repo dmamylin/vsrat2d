@@ -50,8 +50,10 @@ public class Screen {
     }
 
     public static void clear(Color color) {
+        Gdx.gl20.glEnable(GL20.GL_BLEND);
+        Gdx.gl20.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glClearColor(color.red(), color.green(), color.blue(), DEFAULT_ALPHA_VALUE);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
     }
 
     public void drawRectangle(Point2D bottomLeftPoint, Size2D size, Paint paint) {

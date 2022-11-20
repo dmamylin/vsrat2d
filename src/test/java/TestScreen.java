@@ -34,6 +34,10 @@ public class TestScreen {
                 new Point2D(400, 300),
                 50,
                 new Paint(new Color(140, 140, 0), true));
+        ctx.screen().drawCircle(
+                new Point2D(400, 300),
+                25,
+                new Paint(new Color(0, 0, 0, 0.5f), true));
         ctx.screen().drawLine(
                 new Point2D(0, ctx.screen().height - 1),
                 new Point2D(ctx.screen().width - 1, 0),
