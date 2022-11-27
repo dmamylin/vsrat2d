@@ -24,6 +24,10 @@ public class TestScreen {
     }
 
     private static void updateFrame(FrameContext ctx) {
+        if (ctx.keyboard().isKeyPressed(KeyboardKey.ESCAPE)) {
+            System.exit(0);
+        }
+
         ctx.screen().clear(new Color(0.2f, 0.2f, 0.2f));
         ctx.screen().drawRectangle(
                 new Point2D(0, 0),

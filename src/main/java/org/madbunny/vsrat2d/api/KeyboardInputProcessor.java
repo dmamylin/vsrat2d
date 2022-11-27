@@ -87,7 +87,11 @@ class KeyboardInputProcessor extends InputAdapter implements KeyboardInput {
         var result = new int[Input.Keys.MAX_KEYCODE + 1];
         Arrays.fill(result, KeyboardKey.UNKNOWN.value);
         for (var key : KeyboardKey.values()) {
-            var gdxKeycode = Input.Keys.valueOf(key.name());
+            var keyName = Input.Keys.toString(key.value);
+            if (keyName == null) {
+                continue;
+            }
+            var gdxKeycode = Input.Keys.valueOf(keyName);
             if (gdxKeycode > 0) {
                 result[gdxKeycode] = key.value;
             }
