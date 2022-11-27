@@ -2,6 +2,7 @@ package org.madbunny.vsrat2d.api;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import java.util.HashMap;
@@ -26,6 +27,11 @@ public class FontManager {
         if (old != null) {
             old.dispose();
         }
+    }
+
+    public Size2D getTextDimensions(int fontId, String text) {
+        var layout = new GlyphLayout(fonts.get(fontId), text);
+        return new Size2D(layout.width, layout.height);
     }
 
     BitmapFont getFont(int id) {

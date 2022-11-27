@@ -4,6 +4,9 @@ public class TestScreen {
     private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 600;
     private static final String WINDOW_TITLE = "Tic-Tac-Toe";
+    private static final Color COLOR_BLACK = new Color(0, 0, 0);
+    private static final Color COLOR_RED = new Color(1, 0, 0);
+
     private static int fontId;
 
     public static void main(String[] args) {
@@ -59,15 +62,20 @@ public class TestScreen {
                 new Color(0.0f, 0.0f, 0.0f),
                 "hello world");
 
-        ctx.screen().drawText(
-                fontId,
-                new Point2D(400, 0),
-                new Color(0.0f, 0.0f, 0.0f),
-                "%.3f".formatted(ctx.currentTime()));
+        drawTime(ctx);
 
         if (ctx.mouse().isButtonClicked(MouseButton.LEFT)) {
             var mousePos = ctx.mouse().getMousePosition();
             System.out.printf("%f, %f%n", mousePos.x(), mousePos.y());
         }
+    }
+
+    private static void drawTime(FrameContext ctx) {
+        // var text = "%.3f".formatted(ctx.currentTime());
+        var text = "1.12354";
+        var pos = new Point2D(400, 0);
+        var dim = ctx.app().fonts().getTextDimensions(fontId, text);
+        ctx.screen().drawRectangle(pos, dim, new Paint(COLOR_RED, false));
+        ctx.screen().drawText(fontId, pos, COLOR_BLACK, text);
     }
 }
