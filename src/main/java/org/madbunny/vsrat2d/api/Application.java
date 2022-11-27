@@ -109,6 +109,8 @@ public class Application {
         private final KeyboardInputProcessor keyboardProcessor;
         private final MouseInputProcessor mouseProcessor;
 
+        private double secondsSinceStart;
+
         public GameScreen(
                 Consumer<FrameContext> updater,
                 Screen screen,
@@ -123,7 +125,9 @@ public class Application {
 
         @Override
         public void render(float deltaTime) {
-            updater.accept(new FrameContext(deltaTime, appCtx, screen, keyboardProcessor, mouseProcessor));
+            secondsSinceStart += deltaTime;
+            var ctx = new FrameContext(deltaTime, secondsSinceStart, appCtx, screen, keyboardProcessor, mouseProcessor);
+            updater.accept(ctx);
             screen.renderTexts();
             keyboardProcessor.reset();
             mouseProcessor.reset();

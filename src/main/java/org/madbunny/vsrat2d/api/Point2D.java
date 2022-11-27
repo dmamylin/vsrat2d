@@ -1,6 +1,10 @@
 package org.madbunny.vsrat2d.api;
 
 public record Point2D(float x, float y) {
+    public Point2D negate() {
+        return new Point2D(-x, -y);
+    }
+
     public Point2D add(Point2D other) {
         return Point2D.add(this, other);
     }
@@ -19,6 +23,10 @@ public record Point2D(float x, float y) {
 
     public float norm() {
         return (float) Math.sqrt(x * x + y * y);
+    }
+
+    public static Point2D negate(Point2D v) {
+        return v.negate();
     }
 
     public static Point2D add(Point2D lhs, Point2D rhs) {

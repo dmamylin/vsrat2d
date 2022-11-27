@@ -59,6 +59,12 @@ public class TestScreen {
                 new Color(0.0f, 0.0f, 0.0f),
                 "hello world");
 
+        ctx.screen().drawText(
+                fontId,
+                new Point2D(400, 0),
+                new Color(0.0f, 0.0f, 0.0f),
+                "%.3f".formatted(ctx.currentTime()));
+
         if (ctx.mouse().isButtonClicked(MouseButton.LEFT)) {
             var mousePos = ctx.mouse().getMousePosition();
             System.out.printf("%f, %f%n", mousePos.x(), mousePos.y());
