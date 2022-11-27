@@ -6,7 +6,7 @@
 
     <groupId>org.madbunny.vsrat2d</groupId>
     <artifactId>vsrat2d</artifactId>
-    <version>1.2.4</version>
+    <version>1.3.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -14,7 +14,7 @@
         <maven.compiler.target>19</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.plugin.compiler.version>3.8.1</maven.plugin.compiler.version>
-        <logbak.version>1.4.4</logbak.version>
+        <logbak.version>1.4.5</logbak.version>
         <gdx.version>1.11.0</gdx.version>
     </properties>
 
